@@ -35,7 +35,7 @@ $(document).on("mouseenter", "span.instructors", function(){
     var className = parentId.substring(7, 10);
 
     var link = "https://sirs.ctaar.rutgers.edu/index.php?mode=name&survey%5Blastname%5D=" + actualInstructor + "&survey%5Bsemester%5D=&survey%5Byear%5D=&survey%5Bschool%5D=" + school + "&survey%5Bdept%5D=" + subject;
-    $(this).attr('onclick', "window.location='https://sirs.ctaar.rutgers.edu/index.php?mode=name&survey%5Blastname%5D=" + actualInstructor + "&survey%5Bsemester%5D=&survey%5Byear%5D=&survey%5Bschool%5D=" + school + "&survey%5Bdept%5D=" + subject+ "'")
+    $(this).attr('onclick', "window.open('https://sirs.ctaar.rutgers.edu/index.php?mode=name&survey%5Blastname%5D=" + actualInstructor + "&survey%5Bsemester%5D=&survey%5Byear%5D=&survey%5Bschool%5D=" + school + "&survey%5Bdept%5D=" + subject+ "', '_blank')")
 
     //above is the stuff for course evals, below will be for ratemyprofessor
     var rateMyProfessorLink = ""
