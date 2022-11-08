@@ -18,6 +18,47 @@ $(document).ready(function () {
         }
     })
     
+    //on hover of instructor name, teacher rating pops up as tooltip (in progress)
+    $(document).on("mouseenter", "span.instructors", function() {
+        var instructorName = $(this).closest('span.instructors').text();
+        var wrapper = "<b class='tooltip'><span>" + instructorName + "</span></b>";
+            $(this).after(wrapper);
+        
+        
+        var firstInstructor = instructorName; // full name of the first instructor
+        for (let i =0; i < instructorName.length; i++){
+            if (instructorName.substring(i, i+1) == ';') {
+                firstInsructor = instructorName.substring(0, i);
+                break;
+            }
+        } 
+        var lastName; // first instructor last name
+        for (let i = 0; i < firstInstructor.length; i++) {
+            if (firstInstructor.substring(i,i+1) == ',') {
+                lastName = firstInstructor.substring(i+2);
+            }
+        }
+
+        //something to fix: sometimes lastName returns the first name
+        console.log(lastName);
+        link = "https://www.ratemyprofessors.com/search/teachers?query=" + lastName + "&sid=U2Nob29sLTgyNQ==";
+    
+        chrome.runtime.sendMessage({url: link}, async function(response) {
+                        
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(response.returned_text, "text/html");
+            console.log(doc); 
+                
+            var ratingValue = doc.getElementsByClassName("CardNumRating__CardNumRatingNumber-sc-17t4b9u-2 gcFhmN")[0].innerHTML;
+            console.log(ratingValue);
+            
+            })
+        })
+        //the problem now is that ratingValue returns undefined, which means that we are 1: either getting the div text wrong, or 2: we cannot access the document contents through the doc function
+        //ratingValue = ratingValue.innerHTML; - this line of code returns undefined because rating value is undefined
+        //code I've tried
+            //var ratingValue = $("CardNumRating__CardNumRatingNumber-sc-17t4b9u-2 gcFhmN").text();
+            //var ratingValue = responseText.substring(responseText.indexOf(start)+start.length, +">", responseText.indexOf('</div>'));
 
 
     //takes them to the course eval search
