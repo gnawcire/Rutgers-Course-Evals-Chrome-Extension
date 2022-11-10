@@ -1,14 +1,21 @@
 {
-    "manifest_version": 3,
-    "name": "Rutgers Course Evals Chrome Extension",
-    "description": "In development",
-    "version": "1.0",
-    "action": {
-      "default_popup": "descrip.html",
-      "default_icon": "hello_extensions.png" 
-    },
-    "content_scripts": [{
-        "matches": ["https://sis.rutgers.edu/soc/*"],
-        "js": ["jquery.js", "myscript.js"]
-    }]
+  "manifest_version": 3,
+  "name": "Rutgers Course Evals Chrome Extension",
+  "description": "In development",
+  "permissions": ["storage"],
+  "version": "1.0",
+  "action": {
+    "default_popup": "descrip.html",
+    "default_icon": "hello_extensions.png" 
+  },
+  "content_scripts": [{
+      "matches": [
+        "https://www.ratemyprofessors.com/*",
+        "https://sis.rutgers.edu/soc/*"
+      ],
+      "js": ["jquery.js", "myscript.js"]
+  }],
+  "background": {
+    "service_worker": "backgroundScript.js"
   }
+}
