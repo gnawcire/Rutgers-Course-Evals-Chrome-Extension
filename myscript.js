@@ -38,28 +38,16 @@ $(document).ready(function () {
                 lastName = firstInstructor.substring(i+2);
             }
         }
-
-        //something to fix: sometimes lastName returns the first name
-        console.log(lastName);
-        link = "https://www.ratemyprofessors.com/search/teachers?query=" + lastName + "&sid=U2Nob29sLTgyNQ==";
-    
+        link = "https://www.ratemyprofessors.com/search/teachers?query=joiner&sid=U2Nob29sLTgyNQ==";
         chrome.runtime.sendMessage({url: link}, async function(response) {
-                        
+            console.log(response);
             var parser = new DOMParser();
-            var doc = parser.parseFromString(response.returned_text, "text/html");
-            console.log(doc); 
-                
-            var ratingValue = doc.getElementsByClassName("CardNumRating__CardNumRatingNumber-sc-17t4b9u-2 gcFhmN")[0].innerHTML;
+            var doc = parser.parseFromString(response.responseText, "text/html");
+            var ratingValue = doc.getElementsByClassName("CardNumRating__CardNumRatingNumber-sc-17t4b9u-2 icXUyq")[0].innerHTML;
             console.log(ratingValue);
-            
             })
         })
-        //the problem now is that ratingValue returns undefined, which means that we are 1: either getting the div text wrong, or 2: we cannot access the document contents through the doc function
-        //ratingValue = ratingValue.innerHTML; - this line of code returns undefined because rating value is undefined
-        //code I've tried
-            //var ratingValue = $("CardNumRating__CardNumRatingNumber-sc-17t4b9u-2 gcFhmN").text();
-            //var ratingValue = responseText.substring(responseText.indexOf(start)+start.length, +">", responseText.indexOf('</div>'));
-
+       
 
     //takes them to the course eval search
     $(document).on("click", 'input.ce', function(){
