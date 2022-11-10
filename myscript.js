@@ -41,14 +41,15 @@ $(document).ready(function () {
         link = "https://www.ratemyprofessors.com/search/teachers?query=joiner&sid=U2Nob29sLTgyNQ==";
         chrome.runtime.sendMessage({url: link}, async function(response) {
             console.log(response);
-            var parser = new DOMParser();
-            var doc = parser.parseFromString(response.responseText, "text/html");
-            var ratingValue = doc.getElementsByClassName("CardNumRating__CardNumRatingNumber-sc-17t4b9u-2 icXUyq")[0].innerHTML;
-            console.log(ratingValue);
+            var ratingstring = JSON.stringify(response);
+            
+            var rating= ratingstring.substring(20,23);
+            console.log(rating);
+            
             })
         })
-       
-
+    
+  
     //takes them to the course eval search
     $(document).on("click", 'input.ce', function(){
 
